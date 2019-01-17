@@ -1,0 +1,1 @@
+start /B dotnet .publish/bg/BG.dll > %~dp0output.log
