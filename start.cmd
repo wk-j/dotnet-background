@@ -1,1 +1,0 @@
-start /b dotnet .publish/bg/BG.dll

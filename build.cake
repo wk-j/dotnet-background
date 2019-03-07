@@ -5,7 +5,7 @@ using PS = StartProcess.Processor;
 using ProjectParser;
 
 var nugetToken = EnvironmentVariable("npi");
-var name = "BG";
+var name = "Background";
 
 var currentDir = new DirectoryInfo(".").FullName;
 var info = Parser.Parse($"src/{name}/{name}.csproj");
@@ -19,6 +19,13 @@ Task("Pack").Does(() => {
 });
 
 Task("Publish").Does(() => {
+    CleanDirectory(publishDir);
+    DotNetCorePublish($"src/{name}", new DotNetCorePublishSettings {
+        OutputDirectory = System.IO.Path.Combine(publishDir, "bg")
+    });
+});
+
+Task("Publish-Windows").Does(() => {
     CleanDirectory(publishDir);
     DotNetCorePublish($"src/{name}", new DotNetCorePublishSettings {
         OutputDirectory = System.IO.Path.Combine(publishDir, "bg")
